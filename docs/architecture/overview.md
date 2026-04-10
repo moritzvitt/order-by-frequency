@@ -15,11 +15,24 @@ When triggered, the add-on:
 7. shows a preview window with matched and unmatched examples
 8. optionally applies the new-card reorder and existing-card due-date rewrite
 
+The runtime keeps the chosen deck in-memory for that invocation only. The stored config deck name is used as the default picker selection rather than being silently applied.
+
 ## Runtime Structure
 
 - `__init__.py` loads the add-on and calls `register()`.
 - `addon.py` contains registration, config loading, ranking, preview generation, and writes.
 - `editor_buttons.py` remains a small utility module for future editor-toolbar additions, but it is not currently active.
+
+## Ranking Strategy
+
+The ranking logic is a direct port of the notebook workflow into Anki-native APIs.
+
+- HTML is stripped and text is normalized before matching.
+- Multiple candidate forms are generated from each chosen field value.
+- The first configured frequency source to introduce a word determines that word's rank.
+- Cards with no match are pushed to the end as `unmatched`.
+
+The preview shows both the top-ranked cards and the first unmatched cards so you can spot bad field choices or missing source data before writing changes.
 
 ## Data Sources
 
@@ -43,3 +56,12 @@ Safe defaults matter here:
 - existing cards stay untouched unless `reschedule_existing_cards` is enabled
 
 If direct new-card repositioning is unavailable, the add-on falls back to assigning due dates to the new cards.
+
+## Development Notes
+
+The repo is designed to work well in two modes:
+
+- packaged as a `.ankiaddon` archive for installation
+- symlinked into an Anki dev profile's `addons21/` folder for live iteration
+
+Packaging excludes the original notebook so the shipped add-on stays focused on runtime assets and documentation.

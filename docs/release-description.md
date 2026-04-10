@@ -5,6 +5,7 @@ Order cards in an Anki deck by external word-frequency lists so the most common 
 ## Features
 
 - previews ranked results before writing anything
+- lets you choose the target deck at runtime
 - repositions new cards by frequency
 - can optionally reschedule existing cards too
 - supports multiple local frequency sources
@@ -12,7 +13,7 @@ Order cards in an Anki deck by external word-frequency lists so the most common 
 
 ## Default Behavior
 
-The bundled config targets a deck named `French` and uses the included `fr_full.txt` frequency list.
+The bundled config highlights a deck named `French` by default and uses the included `fr_full.txt` frequency list.
 
 The add-on starts in `dry_run` mode, so the first run only shows a preview. Turn `dry_run` off in the add-on config when you are ready to apply changes.
 
