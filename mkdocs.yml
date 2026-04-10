@@ -1,0 +1,6 @@
+site_name: Order By Frequency
+docs_dir: docs
+
+nav:
+  - Overview: README.md
+  - Architecture Overview: architecture/overview.md
