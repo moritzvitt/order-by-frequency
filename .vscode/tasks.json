@@ -9,7 +9,8 @@
         "-m",
         "py_compile",
         "__init__.py",
-        "addon.py"
+        "addon.py",
+        "editor_buttons.py"
       ],
       "group": "build",
       "problemMatcher": []
@@ -20,7 +21,7 @@
       "command": "bash",
       "args": [
         "-lc",
-        "repo_name=${PWD##*/}; rm -f ./$repo_name.ankiaddon; zip -r ./$repo_name.ankiaddon . -x './.git/*' './.vscode/*' './__pycache__/*' './.DS_Store'"
+        "repo_name=${PWD##*/}; rm -f ./$repo_name.ankiaddon; zip -r ./$repo_name.ankiaddon . -x './.git/*' './.vscode/*' './__pycache__/*' './.DS_Store' './*.ipynb'"
       ],
       "group": "build",
       "problemMatcher": []

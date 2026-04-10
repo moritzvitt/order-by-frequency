@@ -1,6 +1,6 @@
 {
-  "package": "starter_repo",
-  "name": "Starter Repo Add-on",
+  "package": "order_by_frequency",
+  "name": "Order By Frequency",
   "conflicts": [],
   "mod": 0
 }

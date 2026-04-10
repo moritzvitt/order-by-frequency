@@ -1,66 +1,51 @@
-# Anki Add-on Starter Repo
+# Order By Frequency
 
-A clean starter template for building future Anki add-ons.
+This Anki add-on turns the notebook workflow in [`reschedule_french_by_frequency.ipynb`](./reschedule_french_by_frequency.ipynb) into a menu-driven add-on.
 
-This repository is designed to give you the repeatable pieces you usually want at the beginning of an add-on project:
+It ranks cards in a target deck against one or more local frequency lists and then:
 
-- a minimal runnable add-on skeleton
-- a reusable Anki editor toolbar button template
-- manifest and config files
-- changelog and release-description docs
-- VS Code tasks for validation and packaging
-- a lightweight documentation structure
+- previews the ranking inside Anki
+- repositions new cards so higher-frequency words come first
+- optionally reschedules existing cards by assigning due dates in the same order
 
-## Included Files
+## How It Works
 
-```text
-starter-repo/
-├── __init__.py
-├── addon.py
-├── editor_buttons.py
-├── manifest.json
-├── config.json
-├── config.md
-├── CHANGELOG.md
-├── LICENSE
-├── .gitignore
-├── .editorconfig
-├── .vscode/
-└── docs/
-```
+Use `Tools -> Order Deck By Frequency` inside Anki.
 
-## How To Use This Template
+The action:
 
-1. Rename the folder to your add-on package name.
-2. Update [`manifest.json`](./manifest.json) with your package and display name.
-3. Replace the sample menu action in [`addon.py`](./addon.py) with your real hooks and behavior.
-4. Reuse or extend the editor toolbar template in [`editor_buttons.py`](./editor_buttons.py) if your add-on adds buttons inside Anki's note editor.
-5. Adjust [`config.json`](./config.json) and [`config.md`](./config.md) to match your add-on settings.
-6. Update [`docs/release-description.md`](./docs/release-description.md) before publishing.
+1. opens a deck picker, defaulting to the configured deck
+2. reads the configured frequency files from [`data/french-frequency`](./data/french-frequency)
+3. scans the configured deck
+4. picks a note field using the configured field priority
+5. generates a preview of matched and unmatched cards
+6. applies the reorder only if `dry_run` is `false` and you confirm it
 
-## Development Notes
+## Default Setup
 
-- Anki loads the add-on from the folder root and executes [`__init__.py`](./__init__.py).
-- Keep add-on code in small focused modules as the project grows.
-- [`editor_buttons.py`](./editor_buttons.py) shows the `gui_hooks.editor_did_init_buttons` pattern and wraps `editor.addButton(...)` in a reusable helper.
-- Use the VS Code tasks to validate Python files and package a `.ankiaddon` archive.
+The default configuration targets:
+
+- deck: `French`
+- source file: [`data/french-frequency/fr_full.txt`](./data/french-frequency/fr_full.txt)
+- safe mode: `dry_run: true`
+
+That means the add-on will preview results first and will not write changes until you flip `dry_run` to `false`.
+
+## Files
+
+- [`addon.py`](./addon.py): main Anki integration and ranking logic
+- [`config.json`](./config.json): runtime settings
+- [`config.md`](./config.md): config reference
+- [`data/french-frequency`](./data/french-frequency): bundled frequency lists
+- [`docs/architecture/overview.md`](./docs/architecture/overview.md): runtime design notes
+- [`docs/release-description.md`](./docs/release-description.md): release text draft
 
 ## Packaging
 
-The provided VS Code task creates a `.ankiaddon` zip archive named after the repository folder.
+The VS Code task creates a `.ankiaddon` archive named after the repository folder.
 
-If you package manually:
+Manual packaging:
 
 ```bash
-zip -r starter-repo.ankiaddon . -x './.git/*' './.vscode/*' './__pycache__/*' './.DS_Store'
+zip -r order-by-frequency.ankiaddon . -x './.git/*' './.vscode/*' './__pycache__/*' './.DS_Store' './*.ipynb'
 ```
-
-## Docs
-
-- Overview: [`docs/README.md`](./docs/README.md)
-- Architecture notes: [`docs/architecture/overview.md`](./docs/architecture/overview.md)
-- Release text draft: [`docs/release-description.md`](./docs/release-description.md)
-
-## License
-
-This template includes the MIT License in [`LICENSE`](./LICENSE). Update the copyright line if needed.

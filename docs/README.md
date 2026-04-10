@@ -1,10 +1,6 @@
 # Docs
 
-This folder is for project documentation that should stay close to the codebase.
+Project-specific documentation for the `Order By Frequency` add-on lives here.
 
-Suggested usage:
-
-- `architecture/` for runtime design notes
-- `release-description.md` for marketplace or release text
-- `editor_buttons.py` in the repo root as the starting point for reusable editor toolbar actions
-- troubleshooting, compatibility, or implementation notes as the add-on grows
+- `architecture/` explains how menu actions, ranking, and writes are connected.
+- `release-description.md` contains publish-ready summary text.

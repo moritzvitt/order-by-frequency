@@ -1,5 +1,28 @@
 {
   "enabled": true,
-  "debug": false,
-  "example_note_types": []
+  "deck_name": "French",
+  "dry_run": true,
+  "reschedule_existing_cards": false,
+  "new_card_starting_position": 1,
+  "new_card_step_size": 1,
+  "shift_existing_new_cards": true,
+  "new_card_due_start_day": 0,
+  "existing_card_due_start_day": 0,
+  "preview_limit": 20,
+  "field_priority": [
+    "French",
+    "Word",
+    "Expression",
+    "Lemma",
+    "Term",
+    "Front",
+    "Vocabulary",
+    "Vocab"
+  ],
+  "frequency_sources": [
+    {
+      "path": "data/french-frequency/fr_full.txt",
+      "format": "word_count"
+    }
+  ]
 }

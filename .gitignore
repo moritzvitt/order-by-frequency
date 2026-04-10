@@ -11,6 +11,7 @@ __pycache__/
 
 # Local workspace files
 *.code-workspace
+anki-dev
 
 # Optional local debug output
 debug.txt
