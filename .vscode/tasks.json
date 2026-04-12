@@ -9,8 +9,7 @@
         "-m",
         "py_compile",
         "__init__.py",
-        "addon.py",
-        "editor_buttons.py"
+        "addon.py"
       ],
       "group": "build",
       "problemMatcher": []

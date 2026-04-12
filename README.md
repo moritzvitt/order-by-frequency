@@ -1,6 +1,6 @@
 # Order By Frequency
 
-This Anki add-on turns the notebook workflow in [`notebooks/reschedule_french_by_frequency.ipynb`](./notebooks/reschedule_french_by_frequency.ipynb) into a menu-driven add-on.
+This Anki add-on orders a deck by local word-frequency data through a simple menu-driven workflow inside Anki.
 
 It ranks cards in a target deck against one or more local frequency lists and then:
 
@@ -59,7 +59,6 @@ The packaging task intentionally excludes:
 - [`docs/config.md`](./docs/config.md): config reference
 - [`docs/`](./docs/): user-facing docs, release copy, and architecture notes
 - [`data/french-frequency`](./data/french-frequency): bundled frequency lists
-- [`notebooks/`](./notebooks/): development notebook history and experiments
 
 ## Packaging
 

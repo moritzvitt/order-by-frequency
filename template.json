@@ -1,8 +1,0 @@
-{
-  "allow_squash_merge": true,
-  "allow_merge_commit": false,
-  "allow_rebase_merge": true,
-  "private": false,
-  "description": "An Anki add-on that ranks cards by external frequency lists and reorders a deck so common words appear first.",
-  "topics": ["anki", "anki-addon", "language-learning", "frequency-lists", "flashcards"]
-}
