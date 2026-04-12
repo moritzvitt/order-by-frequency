@@ -11,7 +11,6 @@ Each run now asks which language or source to use before ranking the deck.
 The default config is safe:
 
 - `dry_run` starts as `true`, so the add-on only previews changes
-- `reschedule_existing_cards` starts as `false`, so only new cards are affected
 - the bundled French frequency list is used by default
 
 If you only want to try the add-on, you usually only need to check:
@@ -42,12 +41,10 @@ These language codes come from the upstream FrequencyWords repository.
   "enabled": true,
   "deck_name": "French",
   "dry_run": true,
-  "reschedule_existing_cards": false,
   "new_card_starting_position": 1,
   "new_card_step_size": 1,
   "shift_existing_new_cards": true,
   "new_card_due_start_day": 0,
-  "existing_card_due_start_day": 0,
   "preview_limit": 20,
   "field_priority": [
     "French",
@@ -92,15 +89,6 @@ Controls whether the add-on only previews the ranking or actually writes changes
 
 Recommended: keep this as `true` until the preview looks correct.
 
-### `reschedule_existing_cards`
-
-Controls whether existing non-new cards also get assigned due dates in frequency order.
-
-- `false`: only new cards are reordered
-- `true`: existing cards are changed too
-
-This is the highest-impact setting in the file. Most users should leave it off unless they explicitly want to rewrite review order.
-
 ### `new_card_starting_position`
 
 The starting new-card position when Anki supports direct new-card repositioning.
@@ -135,15 +123,6 @@ If you are unsure, keep this at `true`.
 Fallback start day used only if direct new-card repositioning is unavailable and the add-on has to assign due dates instead.
 
 Most users will never need to change this.
-
-### `existing_card_due_start_day`
-
-Start day used when `reschedule_existing_cards` is enabled.
-
-Example:
-
-- `0`: the top-ranked existing card gets due day 0
-- `7`: the top-ranked existing card starts one week later
 
 ### `preview_limit`
 
@@ -257,5 +236,5 @@ Even though the add-on now prompts for the language each time, this setting stil
 
 - Start with `dry_run: true`
 - Check the preview before writing changes
-- Leave `reschedule_existing_cards` off unless you really want to change review due dates
+- This add-on only reorders cards that are currently `is:new`
 - If too many cards are unmatched, your `field_priority` or `frequency_sources` probably need adjustment

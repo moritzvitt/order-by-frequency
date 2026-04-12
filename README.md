@@ -6,7 +6,6 @@ It ranks cards in a target deck against one or more local frequency lists and th
 
 - previews the ranking inside Anki
 - repositions new cards so higher-frequency words come first
-- optionally reschedules existing cards by assigning due dates in the same order
 
 ## Usage
 
@@ -51,7 +50,6 @@ The most important settings in [`config.json`](./config.json) are:
 
 - `deck_name`: the default deck highlighted in the picker
 - `dry_run`: preview-only mode
-- `reschedule_existing_cards`: whether non-new cards also get reassigned due dates
 - `field_priority`: which note fields are checked first for a frequency match
 - `frequency_sources`: one or more local frequency files merged in order
 

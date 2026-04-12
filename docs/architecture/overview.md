@@ -13,7 +13,7 @@ When triggered, the add-on:
 5. inspects each card's note fields using the configured field priority
 6. ranks cards by the best frequency match it can find
 7. shows a preview window with matched and unmatched examples
-8. optionally applies the new-card reorder and existing-card due-date rewrite
+8. applies the new-card reorder if you confirm it
 
 The runtime keeps the chosen deck in-memory for that invocation only. The stored config deck name is used as the default picker selection rather than being silently applied.
 
@@ -53,7 +53,7 @@ Safe defaults matter here:
 
 - `dry_run: true` means preview only
 - new cards are reordered by scheduler position
-- existing cards stay untouched unless `reschedule_existing_cards` is enabled
+- review and learn cards stay untouched
 
 If direct new-card repositioning is unavailable, the add-on falls back to assigning due dates to the new cards.
 

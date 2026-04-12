@@ -20,7 +20,6 @@ The add-on compares cards in your deck against one or more frequency lists, then
 
 - shows you a preview before anything is changed
 - repositions new cards so more common words come first
-- can optionally reschedule existing cards too
 - lets you choose which note fields should be checked first
 
 ## Good Fit For

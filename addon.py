@@ -71,7 +71,6 @@ class RankingResult:
     ranked_cards: list[RankedCard]
     unknown_rank: int
     new_sorted_ids: list[int]
-    existing_sorted_ids: list[int]
 
 
 def register() -> None:
@@ -149,9 +148,7 @@ def _run_for_deck(config: dict, deck_name: str) -> None:
         tooltip("Dry run mode is enabled. No changes were written.", parent=mw)
         return
 
-    if not result.new_sorted_ids and not (
-        config.get("reschedule_existing_cards", False) and result.existing_sorted_ids
-    ):
+    if not result.new_sorted_ids:
         tooltip("Nothing to reorder for the current configuration.", parent=mw)
         return
 
@@ -240,7 +237,7 @@ def _confirm_apply_ranking() -> bool:
         dialog.setIcon(QMessageBox.Icon.Question)
         dialog.setText("Apply this frequency order to the deck now?")
         dialog.setInformativeText(
-            "This can change new card positions and, if enabled, due dates for existing cards."
+            "This will change the order of new cards in the selected deck."
         )
 
         apply_button = dialog.addButton("Apply Now", QMessageBox.ButtonRole.AcceptRole)
@@ -341,15 +338,10 @@ def _rank_cards(config: dict) -> RankingResult:
     new_sorted_ids = [
         item.card_id for item in ranked_cards if item.is_new and not item.is_suspended
     ]
-    existing_sorted_ids = [
-        item.card_id for item in ranked_cards if not item.is_new and not item.is_suspended
-    ]
-
     return RankingResult(
         ranked_cards=ranked_cards,
         unknown_rank=unknown_rank,
         new_sorted_ids=new_sorted_ids,
-        existing_sorted_ids=existing_sorted_ids,
     )
 
 
@@ -365,16 +357,6 @@ def _apply_ranking(config: dict, result: RankingResult) -> str:
         )
     else:
         lines.append("No new cards needed reordering.")
-
-    if config.get("reschedule_existing_cards", False):
-        start_day = int(config.get("existing_card_due_start_day", 0))
-        for offset, card_id in enumerate(result.existing_sorted_ids, start=start_day):
-            mw.col.sched.set_due_date([card_id], str(offset))
-        lines.append(
-            f"Assigned due dates to {len(result.existing_sorted_ids)} existing cards."
-        )
-    else:
-        lines.append("Existing cards were left untouched.")
 
     return "\n".join(lines)
 
@@ -412,14 +394,12 @@ def _build_preview_text(config: dict, result: RankingResult) -> str:
         f"Deck: {config['deck_name']}",
         f"Language/source: {config.get('_selected_frequency_label', 'Configured Sources')}",
         f"Dry run: {config.get('dry_run', True)}",
-        f"Reschedule existing cards: {config.get('reschedule_existing_cards', False)}",
         f"Frequency sources: {len(config.get('frequency_sources', []))}",
         "",
         f"All cards: {len(result.ranked_cards)}",
         f"Matched cards: {len(matched_cards)}",
         f"Unmatched cards: {len(unmatched_cards)}",
         f"New cards to reorder: {len(result.new_sorted_ids)}",
-        f"Existing non-suspended cards: {len(result.existing_sorted_ids)}",
         "",
         f"Top {min(preview_limit, len(result.ranked_cards))} ranked cards:",
     ]

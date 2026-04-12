@@ -16,6 +16,7 @@ The format is based on Keep a Changelog and this project follows semantic versio
 - Added bundled frequency lists for English, Spanish, Italian, German, Japanese, and Chinese alongside the existing French data.
 - Added a per-run language/source picker so frequency ordering asks which language to use each time.
 - Refreshed the bundled German and Italian frequency files and synced the release description to the current feature set.
+- Simplified the add-on so it now only reorders cards that are `is:new`; review and learn cards are never changed.
 
 ## 0.1.0 - 2026-04-10
 
