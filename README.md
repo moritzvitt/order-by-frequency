@@ -15,11 +15,12 @@ Use `Tools -> Order Deck By Frequency` inside Anki.
 The action:
 
 1. opens a deck picker, defaulting to the configured deck
-2. reads the configured frequency files from [`data/french-frequency`](./data/french-frequency)
-3. scans the configured deck
-4. picks a note field using the configured field priority
-5. generates a preview of matched and unmatched cards
-6. applies the reorder only if `dry_run` is `false` and you confirm it
+2. asks which bundled language or configured source this run should use
+3. reads the selected frequency files from [`data/`](./data/)
+4. scans the configured deck
+5. picks a note field using the configured field priority
+6. generates a preview of matched and unmatched cards
+7. applies the reorder only if `dry_run` is `false` and you confirm it
 
 ## Default Setup
 
@@ -30,6 +31,19 @@ The default configuration targets:
 - safe mode: `dry_run: true`
 
 That means the add-on will preview results first and will not write changes until you flip `dry_run` to `false`.
+
+## Bundled Languages
+
+The repo now includes ready-to-use frequency lists for:
+
+- French: `fr`
+- English: `en`
+- Spanish: `es`
+- Italian: `it`
+- German: `de`
+- Japanese: `ja`
+- Chinese (Simplified): `zh_cn`
+- Chinese (Traditional): `zh_tw`
 
 ## Configuration
 
@@ -58,7 +72,7 @@ The packaging task intentionally excludes:
 - [`config.json`](./config.json): runtime settings
 - [`docs/config.md`](./docs/config.md): config reference
 - [`docs/`](./docs/): user-facing docs, release copy, and architecture notes
-- [`data/french-frequency`](./data/french-frequency): bundled frequency lists
+- [`data/`](./data/): bundled frequency lists for multiple languages
 
 ## Packaging
 

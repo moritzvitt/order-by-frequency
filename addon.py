@@ -10,7 +10,7 @@ import unicodedata
 
 from anki.consts import CARD_TYPE_NEW, QUEUE_TYPE_SUSPENDED
 from aqt import mw
-from aqt.qt import QAction, QMessageBox
+from aqt.qt import QAction, QInputDialog, QMessageBox
 from aqt.utils import showInfo, showText, tooltip
 
 if TYPE_CHECKING:
@@ -33,6 +33,23 @@ DEFAULT_FIELD_PRIORITY = [
     "Front",
     "Vocabulary",
     "Vocab",
+]
+
+BUNDLED_LANGUAGE_SOURCES = [
+    ("French", [{"path": "data/french-frequency/fr_full.txt", "format": "word_count"}]),
+    ("English", [{"path": "data/english-frequency/en_full.txt", "format": "word_count"}]),
+    ("Spanish", [{"path": "data/spanish-frequency/es_full.txt", "format": "word_count"}]),
+    ("Italian", [{"path": "data/italian-frequency/it_full.txt", "format": "word_count"}]),
+    ("German", [{"path": "data/german-frequency/de_full.txt", "format": "word_count"}]),
+    ("Japanese", [{"path": "data/japanese-frequency/ja_full.txt", "format": "word_count"}]),
+    (
+        "Chinese (Simplified)",
+        [{"path": "data/chinese-frequency/zh_cn_full.txt", "format": "word_count"}],
+    ),
+    (
+        "Chinese (Traditional)",
+        [{"path": "data/chinese-frequency/zh_tw_full.txt", "format": "word_count"}],
+    ),
 ]
 
 
@@ -106,6 +123,12 @@ def _prompt_for_deck(config: dict) -> None:
 def _run_for_deck(config: dict, deck_name: str) -> None:
     config = dict(config)
     config["deck_name"] = deck_name
+    selected_sources = _prompt_for_language_sources(config)
+    if selected_sources is None:
+        return
+
+    config["frequency_sources"] = selected_sources["sources"]
+    config["_selected_frequency_label"] = selected_sources["label"]
 
     try:
         result = _rank_cards(config)
@@ -151,6 +174,61 @@ def _load_config() -> dict:
     if config is None:
         raise RuntimeError("Could not load add-on config.")
     return config
+
+
+def _prompt_for_language_sources(config: dict) -> dict[str, object] | None:
+    assert mw is not None
+
+    options: list[tuple[str, list[dict]]] = []
+    default_label = "Use Config Sources"
+    configured_sources = [dict(source) for source in config.get("frequency_sources", [])]
+    if configured_sources:
+        options.append((default_label, configured_sources))
+
+    for label, sources in BUNDLED_LANGUAGE_SOURCES:
+        if all(_resolve_source_path(source["path"]).exists() for source in sources):
+            options.append((label, [dict(source) for source in sources]))
+
+    if not options:
+        showInfo(
+            "No frequency sources are available.\n\n"
+            "Add a valid source to config.json or bundle a frequency list first.",
+            parent=mw,
+            title=ADDON_NAME,
+        )
+        return None
+
+    current_sources = config.get("frequency_sources", [])
+    current_label = default_label
+    for label, sources in options:
+        if _same_sources(current_sources, sources):
+            current_label = label
+            break
+
+    labels = [label for label, _ in options]
+    current_index = labels.index(current_label) if current_label in labels else 0
+    selected_label, accepted = QInputDialog.getItem(
+        mw,
+        ADDON_NAME,
+        "Which language or source should this run use?",
+        labels,
+        current=current_index,
+        editable=False,
+    )
+    if not accepted:
+        return None
+
+    for label, sources in options:
+        if label == selected_label:
+            return {"label": label, "sources": sources}
+
+    return None
+
+
+def _same_sources(left: list[dict], right: list[dict]) -> bool:
+    left_paths = [(item.get("path"), item.get("format"), item.get("word_column")) for item in left]
+    right_paths = [(item.get("path"), item.get("format"), item.get("word_column")) for item in right]
+    return left_paths == right_paths
 
 
 def _confirm_apply_ranking() -> bool:
@@ -332,6 +410,7 @@ def _build_preview_text(config: dict, result: RankingResult) -> str:
         ADDON_NAME,
         "",
         f"Deck: {config['deck_name']}",
+        f"Language/source: {config.get('_selected_frequency_label', 'Configured Sources')}",
         f"Dry run: {config.get('dry_run', True)}",
         f"Reschedule existing cards: {config.get('reschedule_existing_cards', False)}",
         f"Frequency sources: {len(config.get('frequency_sources', []))}",

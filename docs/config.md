@@ -4,6 +4,8 @@ This page explains what you can change in [`config.json`](../config.json).
 
 In Anki, open `Tools -> Add-ons -> Order By Frequency -> Config` to edit these settings.
 
+Each run now asks which language or source to use before ranking the deck.
+
 ## Quick Start
 
 The default config is safe:
@@ -17,6 +19,21 @@ If you only want to try the add-on, you usually only need to check:
 - `deck_name`
 - `field_priority`
 - `frequency_sources`
+
+## Bundled Language Codes
+
+The add-on still defaults to French, but this repo now also includes bundled frequency files for several other languages:
+
+- French: `data/french-frequency/fr_full.txt`
+- English: `data/english-frequency/en_full.txt`
+- Spanish: `data/spanish-frequency/es_full.txt`
+- Italian: `data/italian-frequency/it_full.txt`
+- German: `data/german-frequency/de_full.txt`
+- Japanese: `data/japanese-frequency/ja_full.txt`
+- Chinese (Simplified): `data/chinese-frequency/zh_cn_full.txt`
+- Chinese (Traditional): `data/chinese-frequency/zh_tw_full.txt`
+
+These language codes come from the upstream FrequencyWords repository.
 
 ## Full Example
 
@@ -184,6 +201,11 @@ Example with multiple sources:
 
 For `ranked_csv` and `ranked_tsv`, you can also set `word_column` if the word column is not named `word`.
 
+Even though the add-on now prompts for the language each time, this setting still matters:
+
+- it defines the `Use Config Sources` option in the picker
+- it lets you keep your own custom source setup available alongside the bundled language lists
+
 ## Common Tweaks
 
 ### Use a Different Deck by Default
@@ -205,6 +227,28 @@ For `ranked_csv` and `ranked_tsv`, you can also set `word_column` if the word co
   {
     "path": "/absolute/path/to/my-list.txt",
     "format": "word_list"
+  }
+]
+```
+
+### Switch to a Bundled Spanish List
+
+```json
+"frequency_sources": [
+  {
+    "path": "data/spanish-frequency/es_full.txt",
+    "format": "word_count"
+  }
+]
+```
+
+### Switch to a Bundled Japanese List
+
+```json
+"frequency_sources": [
+  {
+    "path": "data/japanese-frequency/ja_full.txt",
+    "format": "word_count"
   }
 ]
 ```

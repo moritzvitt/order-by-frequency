@@ -13,6 +13,8 @@ The format is based on Keep a Changelog and this project follows semantic versio
 - Reorganized docs so the config reference now lives under `docs/`.
 - Removed unused repo files, including inactive editor-button code, the old notebook, and extra frequency-list samples that were not referenced by the active add-on config.
 - Added a `Make Backup First` option to the apply-confirmation dialog before frequency reordering is written.
+- Added bundled frequency lists for English, Spanish, Italian, German, Japanese, and Chinese alongside the existing French data.
+- Added a per-run language/source picker so frequency ordering asks which language to use each time.
 
 ## 0.1.0 - 2026-04-10
 

@@ -36,9 +36,9 @@ The preview shows both the top-ranked cards and the first unmatched cards so you
 
 ## Data Sources
 
-Frequency files are bundled under `data/french-frequency/`.
+Frequency files are bundled under `data/`.
 
-The default source is `data/french-frequency/fr_full.txt`, but the config supports multiple sources and multiple formats:
+The default source is `data/french-frequency/fr_full.txt`, and the repo also bundles English, Spanish, Italian, German, Japanese, and Chinese lists. The config supports multiple sources and multiple formats:
 
 - `word_count`
 - `word_list`

@@ -9,7 +9,7 @@ Order cards in an Anki deck by external word-frequency lists so the most common 
 - repositions new cards by frequency
 - can optionally reschedule existing cards too
 - supports multiple local frequency sources
-- includes bundled French frequency data for a ready-to-use default setup
+- includes bundled frequency data for French, English, Spanish, Italian, German, Japanese, and Chinese
 - lets you choose which note fields are inspected first
 
 ## Default Behavior
