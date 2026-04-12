@@ -22,6 +22,8 @@ The runtime keeps the chosen deck in-memory for that invocation only. The stored
 - `__init__.py` loads the add-on and calls `register()`.
 - `addon.py` contains registration, config loading, ranking, preview generation, and writes.
 - `editor_buttons.py` remains a small utility module for future editor-toolbar additions, but it is not currently active.
+- `docs/` holds release-facing docs plus this architecture note.
+- `notebooks/` keeps the original exploratory workflow separate from the shipped runtime files.
 
 ## Ranking Strategy
 
@@ -64,4 +66,4 @@ The repo is designed to work well in two modes:
 - packaged as a `.ankiaddon` archive for installation
 - symlinked into an Anki dev profile's `addons21/` folder for live iteration
 
-Packaging excludes the original notebook so the shipped add-on stays focused on runtime assets and documentation.
+The original development notebook now lives under `notebooks/`, and packaging excludes `.ipynb` files so the shipped add-on stays focused on runtime assets and documentation.

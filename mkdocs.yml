@@ -3,4 +3,7 @@ docs_dir: docs
 
 nav:
   - Overview: README.md
+  - Config: config.md
+  - AnkiWeb Product Page: ankiweb-product-page.md
+  - Release Description: release-description.md
   - Architecture Overview: architecture/overview.md

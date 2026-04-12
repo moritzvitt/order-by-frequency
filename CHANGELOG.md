@@ -10,6 +10,7 @@ The format is based on Keep a Changelog and this project follows semantic versio
 
 - MkDocs configuration for the shared add-on documentation site so this repo's docs can be included in the combined GitHub Pages build.
 - Added an AnkiWeb-focused product page draft to help present the add-on to new users.
+- Reorganized docs so the config reference now lives under `docs/` and the original development notebook lives under `notebooks/`.
 
 ## 0.1.0 - 2026-04-10
 

@@ -1,6 +1,6 @@
 # Order By Frequency
 
-This Anki add-on turns the notebook workflow in [`reschedule_french_by_frequency.ipynb`](./reschedule_french_by_frequency.ipynb) into a menu-driven add-on.
+This Anki add-on turns the notebook workflow in [`notebooks/reschedule_french_by_frequency.ipynb`](./notebooks/reschedule_french_by_frequency.ipynb) into a menu-driven add-on.
 
 It ranks cards in a target deck against one or more local frequency lists and then:
 
@@ -56,10 +56,10 @@ The packaging task intentionally excludes:
 
 - [`addon.py`](./addon.py): main Anki integration and ranking logic
 - [`config.json`](./config.json): runtime settings
-- [`config.md`](./config.md): config reference
+- [`docs/config.md`](./docs/config.md): config reference
+- [`docs/`](./docs/): user-facing docs, release copy, and architecture notes
 - [`data/french-frequency`](./data/french-frequency): bundled frequency lists
-- [`docs/architecture/overview.md`](./docs/architecture/overview.md): runtime design notes
-- [`docs/release-description.md`](./docs/release-description.md): release text draft
+- [`notebooks/`](./notebooks/): development notebook history and experiments
 
 ## Packaging
 

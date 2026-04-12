@@ -9,6 +9,7 @@ Order cards in an Anki deck by external word-frequency lists so the most common 
 - repositions new cards by frequency
 - can optionally reschedule existing cards too
 - supports multiple local frequency sources
+- includes bundled French frequency data for a ready-to-use default setup
 - lets you choose which note fields are inspected first
 
 ## Default Behavior
@@ -20,3 +21,5 @@ The add-on starts in `dry_run` mode, so the first run only shows a preview. Turn
 ## Good Fit
 
 This is useful when your deck contains vocabulary cards and you want study order to follow real-world frequency instead of import order.
+
+It is especially handy when you already have a large deck and want a safer, more transparent way to improve study order without hand-editing card positions.
