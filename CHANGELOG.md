@@ -6,6 +6,8 @@ The format is based on Keep a Changelog and this project follows semantic versio
 
 ## Unreleased
 
+## 0.2.0 - 2026-04-12
+
 ### Added
 
 - MkDocs configuration for the shared add-on documentation site so this repo's docs can be included in the combined GitHub Pages build.
