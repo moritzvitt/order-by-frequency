@@ -15,3 +15,4 @@ anki-dev
 
 # Optional local debug output
 debug.txt
+meta.json

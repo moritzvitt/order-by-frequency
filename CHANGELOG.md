@@ -12,6 +12,7 @@ The format is based on Keep a Changelog and this project follows semantic versio
 - Added an AnkiWeb-focused product page draft to help present the add-on to new users.
 - Reorganized docs so the config reference now lives under `docs/`.
 - Removed unused repo files, including inactive editor-button code, the old notebook, and extra frequency-list samples that were not referenced by the active add-on config.
+- Added a `Make Backup First` option to the apply-confirmation dialog before frequency reordering is written.
 
 ## 0.1.0 - 2026-04-10
 

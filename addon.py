@@ -10,8 +10,8 @@ import unicodedata
 
 from anki.consts import CARD_TYPE_NEW, QUEUE_TYPE_SUSPENDED
 from aqt import mw
-from aqt.qt import QAction
-from aqt.utils import askUser, showInfo, showText, tooltip
+from aqt.qt import QAction, QMessageBox
+from aqt.utils import showInfo, showText, tooltip
 
 if TYPE_CHECKING:
     from anki.cards import Card
@@ -132,11 +132,7 @@ def _run_for_deck(config: dict, deck_name: str) -> None:
         tooltip("Nothing to reorder for the current configuration.", parent=mw)
         return
 
-    if not askUser(
-        "Apply this frequency order to the deck now?\n\n"
-        "This can change new card positions and, if enabled, due dates for existing cards.",
-        parent=mw,
-    ):
+    if not _confirm_apply_ranking():
         return
 
     try:
@@ -155,6 +151,52 @@ def _load_config() -> dict:
     if config is None:
         raise RuntimeError("Could not load add-on config.")
     return config
+
+
+def _confirm_apply_ranking() -> bool:
+    assert mw is not None
+
+    while True:
+        dialog = QMessageBox(mw)
+        dialog.setWindowTitle(ADDON_NAME)
+        dialog.setIcon(QMessageBox.Icon.Question)
+        dialog.setText("Apply this frequency order to the deck now?")
+        dialog.setInformativeText(
+            "This can change new card positions and, if enabled, due dates for existing cards."
+        )
+
+        apply_button = dialog.addButton("Apply Now", QMessageBox.ButtonRole.AcceptRole)
+        backup_button = dialog.addButton("Make Backup First", QMessageBox.ButtonRole.ActionRole)
+        dialog.addButton(QMessageBox.StandardButton.Cancel)
+        dialog.setDefaultButton(apply_button)
+        dialog.exec()
+
+        clicked = dialog.clickedButton()
+        if clicked == apply_button:
+            return True
+        if clicked == backup_button:
+            if _trigger_anki_backup():
+                continue
+            return False
+        return False
+
+
+def _trigger_anki_backup() -> bool:
+    assert mw is not None
+
+    action = getattr(getattr(mw, "form", None), "actionCreateBackup", None)
+    if action is None or not hasattr(action, "trigger"):
+        showInfo(
+            "Could not trigger Anki's built-in backup action automatically.\n\n"
+            "Please use File -> Create Backup, then run Order By Frequency again.",
+            parent=mw,
+            title=ADDON_NAME,
+        )
+        return False
+
+    action.trigger()
+    tooltip("Requested an Anki backup. Review the dialog, then choose how to proceed.", parent=mw)
+    return True
 
 
 def _rank_cards(config: dict) -> RankingResult:
