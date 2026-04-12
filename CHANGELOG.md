@@ -15,6 +15,7 @@ The format is based on Keep a Changelog and this project follows semantic versio
 - Added a `Make Backup First` option to the apply-confirmation dialog before frequency reordering is written.
 - Added bundled frequency lists for English, Spanish, Italian, German, Japanese, and Chinese alongside the existing French data.
 - Added a per-run language/source picker so frequency ordering asks which language to use each time.
+- Refreshed the bundled German and Italian frequency files and synced the release description to the current feature set.
 
 ## 0.1.0 - 2026-04-10
 

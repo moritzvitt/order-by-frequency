@@ -6,6 +6,7 @@ Order cards in an Anki deck by external word-frequency lists so the most common 
 
 - previews ranked results before writing anything
 - lets you choose the target deck at runtime
+- asks which bundled language or configured source to use for each run
 - repositions new cards by frequency
 - can optionally reschedule existing cards too
 - supports multiple local frequency sources
