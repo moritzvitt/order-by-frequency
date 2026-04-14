@@ -12,12 +12,14 @@ from anki.consts import CARD_TYPE_NEW, QUEUE_TYPE_SUSPENDED
 from aqt import mw
 from aqt.qt import QAction, QInputDialog, QMessageBox
 from aqt.utils import showInfo, showText, tooltip
+from . import shared_menu
 
 if TYPE_CHECKING:
     from anki.cards import Card
     from aqt.studydeck import StudyDeck
 
 ADDON_NAME = "Order By Frequency"
+ADDON_MENU_NAME = "Order By Frequency"
 ADDON_DIR = Path(__file__).resolve().parent
 BRACKET_RE = re.compile(r"\[[^\]]*\]|\([^\)]*\)")
 HTML_TAG_RE = re.compile(r"<[^>]+>")
@@ -78,9 +80,11 @@ def register() -> None:
     if mw is None:
         return
 
-    action = QAction("Order Deck By Frequency", mw)
-    action.triggered.connect(_run_from_menu)
-    mw.form.menuTools.addAction(action)
+    shared_menu.add_action_to_addon_menu(
+        addon_name=ADDON_MENU_NAME,
+        action_text="Order Deck By Frequency",
+        callback=_run_from_menu,
+    )
 
 
 def _run_from_menu() -> None:

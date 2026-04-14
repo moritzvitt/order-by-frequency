@@ -6,6 +6,14 @@ The format is based on Keep a Changelog and this project follows semantic versio
 
 ## Unreleased
 
+### Added
+
+- Bundled a reusable `shared_menu.py` helper so this add-on can create or reuse the shared `Moritz Add-ons` top-level Anki menu without depending on another installed add-on.
+
+### Changed
+
+- Moved the `Order Deck By Frequency` main-window action from `Tools` into `Moritz Add-ons -> Order By Frequency`.
+
 ## 0.2.0 - 2026-04-12
 
 ### Added
