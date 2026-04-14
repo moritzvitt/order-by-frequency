@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from aqt.studydeck import StudyDeck
 
 ADDON_NAME = "Order By Frequency"
-ADDON_MENU_NAME = "Order By Frequency"
+ADDON_MENU_NAME = "Order by Frequency"
 ADDON_DIR = Path(__file__).resolve().parent
 BRACKET_RE = re.compile(r"\[[^\]]*\]|\([^\)]*\)")
 HTML_TAG_RE = re.compile(r"<[^>]+>")
